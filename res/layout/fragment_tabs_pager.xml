@@ -18,7 +18,7 @@
 */
 -->
 
-<FragmentTabHost
+<com.example.testapp.FixedFragmentTabHost
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabhost"
     android:layout_width="match_parent"
@@ -41,6 +41,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="0"/>
+        
+         <FrameLayout
+            android:id="@+id/realtabcontent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
@@ -49,4 +55,4 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
-</FragmentTabHost>
+</com.example.testapp.FixedFragmentTabHost>
