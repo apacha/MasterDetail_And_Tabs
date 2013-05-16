@@ -54,6 +54,7 @@ public class ItemDetailFragment extends Fragment {
         mTabHost.setup();
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        mViewPager.setOffscreenPageLimit(2);
 
         mTabsAdapter = new TabsAdapter(getActivity(), mTabHost, mViewPager);
 
