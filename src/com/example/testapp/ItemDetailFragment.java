@@ -2,6 +2,7 @@ package com.example.testapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ public class ItemDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    FixedFragmentTabHost mTabHost;
+    FragmentTabHost mTabHost;
     ViewPager mViewPager;
     TabsAdapter mTabsAdapter;
 
@@ -30,7 +31,7 @@ public class ItemDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tabs_pager, container, false);
+        //View rootView = inflater.inflate(R.layout.fragment_tabs_pager, container, false);
 
         int itemId = 0;
 
@@ -41,10 +42,11 @@ public class ItemDetailFragment extends Fragment {
             itemId = Integer.parseInt(getArguments().getString(ARG_ITEM_ID));
         }
 
-        mTabHost = (FixedFragmentTabHost) rootView.findViewById(R.id.tabhost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
+        mTabHost = new FragmentTabHost(getActivity());
+        //mTabHost = (FragmentTabHost) rootView.findViewById(R.id.tabhost);
+        mTabHost.setup(getActivity(), getChildFragmentManager(), itemId);
 
-        mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        //mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         //mViewPager.setOffscreenPageLimit(1);
 
         mTabsAdapter = new TabsAdapter(getActivity(), mTabHost, mViewPager);
@@ -60,16 +62,13 @@ public class ItemDetailFragment extends Fragment {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
         }
 
-        return rootView;
+        return mTabHost;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mTabsAdapter.clearTabs();
-        mTabsAdapter = null;
         mTabHost = null;
-        mViewPager = null;
     }
 
     @Override

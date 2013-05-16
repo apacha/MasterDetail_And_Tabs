@@ -21,12 +21,12 @@ import android.widget.TabWidget;
  * listens to changes in tabs, and takes care of switch to the correct paged in the ViewPager whenever the selected tab
  * changes.
  */
-public class TabsAdapter extends FragmentPagerAdapter implements FixedFragmentTabHost.OnTabChangeListener,
+public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabChangeListener,
         ViewPager.OnPageChangeListener {
     private final Context mContext;
-    private FixedFragmentTabHost mTabHost;
-    private ViewPager mViewPager;
-    private ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+    private final TabHost mTabHost;
+    private final ViewPager mViewPager;
+    private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
 
     public final class TabInfo {
         private final String tag;
@@ -56,14 +56,14 @@ public class TabsAdapter extends FragmentPagerAdapter implements FixedFragmentTa
         }
     }
 
-    public TabsAdapter(FragmentActivity activity, FixedFragmentTabHost tabHost, ViewPager pager) {
+    public TabsAdapter(FragmentActivity activity, TabHost tabHost, ViewPager pager) {
         super(activity.getSupportFragmentManager());
         mContext = activity;
         mTabHost = tabHost;
         mViewPager = pager;
         mTabHost.setOnTabChangedListener(this);
-        mViewPager.setAdapter(this);
-        mViewPager.setOnPageChangeListener(this);
+        //mViewPager.setAdapter(this);
+        //mViewPager.setOnPageChangeListener(this);
     }
 
     public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
@@ -72,14 +72,7 @@ public class TabsAdapter extends FragmentPagerAdapter implements FixedFragmentTa
 
         TabInfo info = new TabInfo(tag, clss, args);
         mTabs.add(info);
-        mTabHost.addTab(tabSpec, clss, args);
-        notifyDataSetChanged();
-    }
-
-    public void clearTabs() {
-        mTabs.clear();
-        mTabHost.clearAllTabs();
-        mTabHost = null;
+        mTabHost.addTab(tabSpec);
         notifyDataSetChanged();
     }
 
@@ -97,7 +90,7 @@ public class TabsAdapter extends FragmentPagerAdapter implements FixedFragmentTa
     @Override
     public void onTabChanged(String tabId) {
         int position = mTabHost.getCurrentTab();
-        mViewPager.setCurrentItem(position);
+        //mViewPager.setCurrentItem(position);
     }
 
     @Override
