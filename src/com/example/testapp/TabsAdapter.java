@@ -62,8 +62,8 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
         mTabHost = tabHost;
         mViewPager = pager;
         mTabHost.setOnTabChangedListener(this);
-        mViewPager.setAdapter(this);
-        mViewPager.setOnPageChangeListener(this);
+        //mViewPager.setAdapter(this);
+        //mViewPager.setOnPageChangeListener(this);
     }
 
     public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
@@ -90,7 +90,7 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
     @Override
     public void onTabChanged(String tabId) {
         int position = mTabHost.getCurrentTab();
-        mViewPager.setCurrentItem(position);
+        //mViewPager.setCurrentItem(position);
     }
 
     @Override
