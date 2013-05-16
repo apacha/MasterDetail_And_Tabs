@@ -31,7 +31,7 @@ public class ItemDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //View rootView = inflater.inflate(R.layout.fragment_tabs_pager, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tabs_pager, container, false);
 
         int itemId = 0;
 
@@ -42,19 +42,19 @@ public class ItemDetailFragment extends Fragment {
             itemId = Integer.parseInt(getArguments().getString(ARG_ITEM_ID));
         }
 
-        mTabHost = new FragmentTabHost(getActivity());
-        //mTabHost = (FragmentTabHost) rootView.findViewById(R.id.tabhost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), itemId);
+        //mTabHost = new FragmentTabHost(getActivity());
+        mTabHost = (FragmentTabHost) rootView.findViewById(R.id.tabhost);
+        mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
-        //mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        //mViewPager.setOffscreenPageLimit(1);
+        mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        mViewPager.setOffscreenPageLimit(2);
 
         mTabsAdapter = new TabsAdapter(getActivity(), mTabHost, mViewPager);
 
         for (int i = 0; i < 3; i++) {
             Bundle b = new Bundle();
             b.putInt("num", itemId * 10 + i);
-            mTabHost.addTab(mTabHost.newTabSpec("simple" + itemId + i).setIndicator("Simple " + itemId + i),
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple" + itemId + i).setIndicator("Simple " + itemId + i),
                     CountingFragment.class, b);
         }
 
@@ -62,7 +62,7 @@ public class ItemDetailFragment extends Fragment {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
         }
 
-        return mTabHost;
+        return rootView;
     }
 
     @Override
