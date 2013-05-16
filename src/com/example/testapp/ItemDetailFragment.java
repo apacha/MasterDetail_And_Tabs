@@ -54,7 +54,8 @@ public class ItemDetailFragment extends Fragment {
         for (int i = 0; i < 3; i++) {
             Bundle b = new Bundle();
             b.putInt("num", itemId * 10 + i);
-            mTabsAdapter.addTab(mTabHost.newTabSpec("simple" + itemId + i).setIndicator("Simple " + itemId + i),
+            // Replace the mTabHost with mTabsAdapter to enable sliding, but causing a strange effect
+            mTabHost.addTab(mTabHost.newTabSpec("simple" + itemId + i).setIndicator("Simple " + itemId + i),
                     CountingFragment.class, b);
         }
 
