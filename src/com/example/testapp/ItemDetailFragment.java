@@ -7,9 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
-import android.widget.TextView;
-
-import com.example.testapp.dummy.DummyContent;
 
 /**
  * A fragment representing a single Item detail screen. This fragment is either contained in a {@link ItemListActivity}
@@ -20,11 +17,6 @@ public class ItemDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
 
     TabHost mTabHost;
     ViewPager mViewPager;
@@ -50,15 +42,15 @@ public class ItemDetailFragment extends Fragment {
             itemId = Integer.parseInt(getArguments().getString(ARG_ITEM_ID));
         }
 
-        mTabHost = (TabHost) rootView.findViewById(android.R.id.tabhost);
+        mTabHost = (TabHost) rootView.findViewById(R.id.tabhost);
         mTabHost.setup();
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(1);
 
         mTabsAdapter = new TabsAdapter(getActivity(), mTabHost, mViewPager);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             Bundle b = new Bundle();
             b.putInt("num", itemId * 10 + i);
             mTabsAdapter.addTab(mTabHost.newTabSpec("simple" + itemId + i).setIndicator("Simple " + itemId + i),
@@ -67,11 +59,6 @@ public class ItemDetailFragment extends Fragment {
 
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
-        }
-
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.content);
         }
 
         return rootView;
